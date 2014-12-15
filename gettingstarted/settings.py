@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 import dj_database_url
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -71,12 +70,7 @@ USE_TZ = True
 
 
 # Parse database configuration from $DATABASE_URL
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+DATABASES = {}
 DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
@@ -87,7 +81,7 @@ ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT= os.path.join(PROJECT_DIR,'staticfiles/')
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '../hello/static'),
+    os.path.join(PROJECT_ROOT,'static/'),
 )
