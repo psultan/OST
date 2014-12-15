@@ -55,17 +55,6 @@ ROOT_URLCONF = 'gettingstarted.urls'
 
 WSGI_APPLICATION = 'gettingstarted.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -87,6 +76,12 @@ STATIC_URL = '/static/'
 
 
 # Parse database configuration from $DATABASE_URL
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
@@ -98,7 +93,6 @@ ALLOWED_HOSTS = ['*']
 # Static asset configuration
 STATIC_URL = '/static/'
 STATIC_ROOT = 'staticfiles'
-print BASE_DIR
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'python-getting-started/hello/static'),
 )
