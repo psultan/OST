@@ -55,6 +55,7 @@ ROOT_URLCONF = 'gettingstarted.urls'
 
 WSGI_APPLICATION = 'gettingstarted.wsgi.application'
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -67,12 +68,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-STATIC_URL = '/static/'
 
 
 # Parse database configuration from $DATABASE_URL
@@ -94,5 +89,5 @@ ALLOWED_HOSTS = ['*']
 STATIC_URL = '/static/'
 STATIC_ROOT = 'staticfiles'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'python-getting-started/hello/static'),
+    os.path.join(BASE_DIR, 'hello/static'),
 )
