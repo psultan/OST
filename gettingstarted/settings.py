@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 import dj_database_url
 
-ROOT = os.path.abspath(os.path.dirname(__file__))
+SETTINGS_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -83,8 +83,8 @@ ALLOWED_HOSTS = ['*']
 #url prefix
 STATIC_URL = '/static/'
 #where collection goes
-STATIC_ROOT= os.path.join(ROOT,'static_collection/')
+STATIC_ROOT= os.path.join(SETTINGS_ROOT,'static_collection/')
 #where collection searches
 STATICFILES_DIRS = (
-    os.path.join(ROOT,'static/'),
+    os.path.join(SETTINGS_ROOT,'static/'),
 )
