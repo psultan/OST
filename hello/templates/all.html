@@ -1,0 +1,15 @@
+{% load static from staticfiles %}
+<html>
+	<body>
+		{% if tests.count > 0 %}
+			{% for test in tests %}
+				<div>			
+					<img src="{% static "images/cathat.jpg" %}" width=100/>
+					<img src="{{test.thumbnail.url}}" width=100 />
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>Nothing to show</p>
+		{% endif %}
+	</body>
+</html>

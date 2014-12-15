@@ -59,13 +59,9 @@ WSGI_APPLICATION = 'gettingstarted.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'America/New_York'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -88,3 +84,8 @@ STATIC_ROOT= os.path.join(SETTINGS_ROOT,'static_collection/')
 STATICFILES_DIRS = (
     os.path.join(SETTINGS_ROOT,'static/'),
 )
+
+#user uploads
+MEDIA_URL = "/media/"
+#absolute path to store user uploaded files here
+MEDIA_ROOT= os.path.join(SETTINGS_ROOT,'media_collection/')
