@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 import requests
 import os
+import sys
 
 from models import Greeting, Test, Tag, Question, Answer, Vote_Answer, Vote_Question
 from forms import TestForm, QuestionForm, AnswerForm
@@ -53,57 +54,98 @@ def upload(request):
 		args['form'] = form
 		return render_to_response("upload.html", args, context_instance=RequestContext(request))
 @login_required
-def create_question(request):
+def create_question(request, question_id=None):
 	user = request.user
 	if request.POST:
 		#save form
-		author  = user.username
-		form = QuestionForm(request.POST)
+		question=None
+		question_id = request.POST["question_id"]
+		if question_id:
+			#editing
+			question=Question.objects.get(id=question_id)
+		form = QuestionForm(request.POST, instance=question)
 		if form.is_valid():
+			author  = user.username
 			question=form.save(commit=False)
 			question.author = user
 			question.save()
 			
+			currentTags=question.tags.all()
+			for eachTag in currentTags:
+				question.tags.remove(eachTag)
+			
 			tags=request.POST['tags'].split(",")
 			for eachTag in tags:
-				currentTag=Tag.objects.filter(text=eachTag)
-				if not currentTag:
+				thisTag=Tag.objects.filter(text=eachTag)
+				if not thisTag:
+					#new tag
 					tag = Tag(text=eachTag.strip())
 					tag.save()
 				else:
-					tag=currentTag.get()
+					#old tag
+					tag=thisTag[0]
 				question.tags.add(tag)
-			
-			return HttpResponseRedirect('/hello/all_questions/')
-		return HttpResponseRedirect('/hello/all_questions/')
+			return HttpResponseRedirect('/hello/question/%s'%question.id)
 	else:
 		#show form
-		form = QuestionForm()
 		args={}
+		question=None
+		tags=""
+		if question_id:
+			#editing current
+			question=Question.objects.get(id=question_id)
+			args["question_id"]=question_id
+			tags=",".join(question.tags.values_list("text", flat=True))
+			
+		form = QuestionForm(tags=tags, instance=question)
 		args['form'] = form
+		
 		return render_to_response("create_question.html", args, context_instance=RequestContext(request))
 @login_required
-def create_answer(request, question_id):
+def create_answer(request, question_id=None, answer_id=None):
 	user = request.user
 	if request.POST:
 		#save form
-		author  = user.username
-		form = AnswerForm(request.POST)
+		answer=None
+		answer_id=request.POST["answer_id"]
+		if answer_id:
+			#editing
+			answer=Answer.objects.get(id=answer_id)
+		form = AnswerForm(request.POST, instance=answer)
 		if form.is_valid():
+			author  = user.username
 			answer=form.save(commit=False)
 			answer.author = user
 			answer.question = Question.objects.get(pk=question_id)
 			answer.save()
 			
-			return HttpResponseRedirect('/hello/all_questions/')
+			return HttpResponseRedirect('/hello/question/%s'%question_id)
 	else:
-		#show form
-		form = AnswerForm()
 		args={}
+		answer=None
+		if answer_id:
+			#edit current
+			answer=Answer.objects.get(id=answer_id)
+			args['question_id']=answer.question.id
+			args['answer_id']=answer
+		else:
+			#show new form
+			args['question_id']=question_id
+		form = AnswerForm(instance=answer)
 		args['form'] = form
-		args['question_id']=question_id
-		return render_to_response("create_answer.html", args, context_instance=RequestContext(request))
 		
+		return render_to_response("create_answer.html", args, context_instance=RequestContext(request))
+@login_required
+def delete_answer(request, answer_id=None):
+	answer=Answer.objects.get(id=answer_id)
+	question=answer.question
+	answer.delete()
+	return HttpResponseRedirect('/hello/question/%s'%question.id)
+@login_required
+def delete_answer(request, question_id=None):
+	question=Question.objects.get(id=question_id)
+	question.delete()
+	return HttpResponseRedirect('/hello/all_questions')
 @login_required
 def vote(request, direction, question_id=None, answer_id=None):
 	user = request.user

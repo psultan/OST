@@ -4,6 +4,7 @@
 	<form action="/hello/create_answer/{{question_id}}/" method="post"">{% csrf_token %}
 		<ul>{{form.as_ul}}</ul>
 		<input type="submit" name="submit" value="Create Answer">
+		<input type="hidden" name="answer_id" value="{{answer_id}}">
 	</form>
 {% endblock %}
 

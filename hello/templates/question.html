@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load smarturlize  %}
 
 {% block content %}
 	<h2><a href="/hello/question/{{question.id}}/">{{question.text}}</a></h2></p>
@@ -8,7 +9,7 @@
 	<p>Author: {{question.author}}</p>
 	<p>Tags:
 		{% for tag in question.tags.all %}
-			{{tag.text}}
+			<a href="/hello/tag_questions/{{tag.id}}">{{tag.text}}</a>
 		{% endfor %}
 	</p>
 	<p>Vote <a href="/hello/vote/{{question.id}}/1"><img src="{% static "images/up.png" %}" width=15 /></a>
@@ -17,11 +18,11 @@
 	</p>
 	
 	{% ifequal question.author user %}
-		<p><a href="/hello/edit_question/{{question.id}}/">Edit Question</a></p>
+		<p><a href="/hello/edit_question/{{question.id}}/">Edit Question </a><a href="/hello/delete_question/{{question.id}}/">Delete Question</a></p>
 	{% endifequal %}
 	
 	{% for answer in answers %}
-		{{answer.text}}
+		{{ answer.text|smarturlize }}
 		<p>Modified: {{answer.modtime}}</p>
 		<p>Created: {{answer.createtime}}</p>
 		<p>Author: {{answer.author}}</p>
@@ -30,7 +31,7 @@
 					{{answer.total_votes}}
 	    </p>
 		{% ifequal answer.author user %}
-			<p><a href="/hello/edit_answer/{{answer.id}}/">Edit Answer</a></p>
+			<p><a href="/hello/edit_answer/{{answer.id}}/">Edit Answer</a> <a href="/hello/delete_answer/{{answer.id}}/">Delete Answer</a></p>
 		{% endifequal %}
 	{% endfor %}
 	
