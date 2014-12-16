@@ -74,17 +74,20 @@ def create_question(request, question_id=None):
 			for eachTag in currentTags:
 				question.tags.remove(eachTag)
 			
-			tags=request.POST['tags'].split(",")
-			for eachTag in tags:
-				thisTag=Tag.objects.filter(text=eachTag)
-				if not thisTag:
-					#new tag
-					tag = Tag(text=eachTag.strip())
-					tag.save()
-				else:
-					#old tag
-					tag=thisTag[0]
-				question.tags.add(tag)
+			tags=request.POST['tags']
+			if tags:
+				tags=tags.split(",")
+				print >>sys.stderr, repr(tags)
+				for eachTag in tags:
+					thisTag=Tag.objects.filter(text=eachTag)
+					if not thisTag:
+						#new tag
+						tag = Tag(text=eachTag.strip())
+						tag.save()
+					else:
+						#old tag
+						tag=thisTag[0]
+					question.tags.add(tag)
 			return HttpResponseRedirect('/hello/question/%s'%question.id)
 	else:
 		#show form

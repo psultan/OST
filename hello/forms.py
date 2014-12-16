@@ -19,7 +19,7 @@ class QuestionForm(forms.ModelForm):
 		if tags:
 			self.fields['tags'].initial=tags
 
-	tags = forms.CharField(label='Tags', max_length=100)
+	tags = forms.CharField(label='Tags', max_length=100, required=False)
 		
 class AnswerForm(forms.ModelForm):
 	class Meta:

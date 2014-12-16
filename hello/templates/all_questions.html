@@ -8,9 +8,11 @@
 					<p>Created: {{question.createtime}}</p>
 					<p>Author: {{question.author}}</p>
 					<p>Tags:
-						{% for tag in question.tags.all %}
-							<a href="/hello/tag_questions/{{tag.id}}">{{tag.text}}</a>,
-						{% endfor %}
+						{% if question.tags.all.count > 0 %}
+							{% for tag in question.tags.all %}
+								<a href="/hello/tag_questions/{{tag.id}}">{{tag.text}}</a>,
+							{% endfor %}
+						{% endif %}
 					</p>
 				</div>
 			{% endfor %}
