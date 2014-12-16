@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static from staticfiles %}
 
 {% block content %}
 	<h2><a href="/hello/question/{{question.id}}/">{{question.text}}</a></h2></p>
@@ -10,6 +11,10 @@
 			{{tag.text}}
 		{% endfor %}
 	</p>
+	<p>Vote <a href="/hello/vote/{{question.id}}/1"><img src="{% static "images/up.png" %}" width=15 /></a>
+	        <a href="/hello/vote/{{question.id}}/-1"><img src="{% static "images/down.png" %}" width=15 /></a>
+			{{question.total_votes}}
+	</p>
 	
 	{% ifequal question.author user %}
 		<p><a href="/hello/edit_question/{{question.id}}/">Edit Question</a></p>
@@ -20,6 +25,10 @@
 		<p>Modified: {{answer.modtime}}</p>
 		<p>Created: {{answer.createtime}}</p>
 		<p>Author: {{answer.author}}</p>
+		<p>Vote <a href="/hello/vote/{{question.id}}/{{answer.id}}/1"><img src="{% static "images/up.png" %}" width=15 /></a>
+	                <a href="/hello/vote/{{question.id}}/{{answer.id}}/-1"><img src="{% static "images/down.png" %}" width=15 /></a>
+					{{answer.total_votes}}
+	    </p>
 		{% ifequal answer.author user %}
 			<p><a href="/hello/edit_answer/{{answer.id}}/">Edit Answer</a></p>
 		{% endifequal %}

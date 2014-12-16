@@ -1,5 +1,6 @@
 from django.db import models
 from time import time
+from django.db.models import Sum
 
 from django.contrib.auth.models import User
 
@@ -27,6 +28,10 @@ class Question(models.Model):
 	
 	def __unicode__(self):
 		return str(self.id)
+		
+	def total_votes(self):
+		return self.vote_question_set.aggregate(Sum('value'))['value__sum']
+	
 class Answer(models.Model):
 	text        = models.TextField()
 	
@@ -38,8 +43,11 @@ class Answer(models.Model):
 	
 	def __unicode__(self):
 		return str(self.id)
+		
+	def total_votes(self):
+		return self.vote_answer_set.aggregate(Sum('value'))['value__sum']
 class Vote_Answer(models.Model):
-	up = models.BooleanField()
+	value = models.SmallIntegerField()
 	
 	author = models.ForeignKey(User)
 	answer = models.ForeignKey(Answer)
@@ -47,7 +55,7 @@ class Vote_Answer(models.Model):
 	def __unicode__(self):
 		return str(self.id)
 class Vote_Question(models.Model):
-	up = models.BooleanField()
+	value = models.SmallIntegerField()
 	
 	author = models.ForeignKey(User)
 	question = models.ForeignKey(Question)

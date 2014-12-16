@@ -8,17 +8,14 @@ from django.contrib.auth.decorators import login_required
 import requests
 import os
 
-from models import Greeting, Test, Tag, Question
+from models import Greeting, Test, Tag, Question, Answer, Vote_Answer, Vote_Question
 from forms import TestForm, QuestionForm, AnswerForm
 
 def db(request):
     greeting = Greeting()
     greeting.save()
-
     greetings = Greeting.objects.all()
-
     return render(request, 'db.html', {'greetings': greetings})
-
 def index(request):
     r = requests.get('http://httpbin.org/status/418')
     print r.text
@@ -48,14 +45,13 @@ def upload(request):
 		form = TestForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/hello/all')
+			return HttpResponseRedirect('/hello/all_images')
 	else:
 		#show form
 		form = TestForm()
 		args={}
 		args['form'] = form
 		return render_to_response("upload.html", args, context_instance=RequestContext(request))
-		
 @login_required
 def create_question(request):
 	user = request.user
@@ -107,3 +103,29 @@ def create_answer(request, question_id):
 		args['form'] = form
 		args['question_id']=question_id
 		return render_to_response("create_answer.html", args, context_instance=RequestContext(request))
+		
+@login_required
+def vote(request, direction, question_id=None, answer_id=None):
+	user = request.user
+		
+	if answer_id:
+		answer = Answer.objects.get(id=answer_id)
+		current_vote=answer.vote_answer_set.filter(author__exact=user)
+		if not current_vote:
+			vote=Vote_Answer(value=direction, author=user, answer=answer)
+		else:
+			vote=current_vote[0]
+			vote.value=direction
+	else:
+		question = Question.objects.get(id=question_id)
+		current_vote=question.vote_question_set.filter(author__exact=user)
+		if not current_vote:
+			vote=Vote_Question(value=direction, author=user, question=question)
+		else:
+			vote=current_vote[0]
+			vote.value=direction
+	vote.save()
+	return HttpResponseRedirect('/hello/question/%s'%question_id)
+
+	
+	
