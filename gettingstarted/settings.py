@@ -25,6 +25,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', DEFAULT_SECRET_KEY)
 DEBUG = True
 
 TEMPLATE_DEBUG = True
+TEMPLATE_DIRS = (
+	os.path.join(SETTINGS_ROOT, "templates"),
+	os.path.join(SETTINGS_ROOT, "../hello/templates"),
+)
 
 ALLOWED_HOSTS = []
 

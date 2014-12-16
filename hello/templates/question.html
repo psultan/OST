@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2><a href="/hello/question/{{question.id}}/">{{question.text}}</a></h2></p>
+	<p>Modified: {{question.modtime}}</p>
+	<p>Created: {{question.createtime}}</p>
+	<p>Author: {{question.author}}</p>
+	<p>Tags:
+		{% for tag in question.tags.all %}
+			{{tag.text}}
+		{% endfor %}
+	</p>
+	
+	{% ifequal question.author user %}
+		<p><a href="/hello/edit_question/{{question.id}}/">Edit Question</a></p>
+	{% endifequal %}
+	
+	{% for answer in answers %}
+		{{answer.text}}
+		<p>Modified: {{answer.modtime}}</p>
+		<p>Created: {{answer.createtime}}</p>
+		<p>Author: {{answer.author}}</p>
+		{% ifequal answer.author user %}
+			<p><a href="/hello/edit_answer/{{answer.id}}/">Edit Answer</a></p>
+		{% endifequal %}
+	{% endfor %}
+	
+	<a href="/hello/create_answer/{{question.id}}">Answer</a>
+{% endblock %}

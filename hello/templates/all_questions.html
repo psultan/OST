@@ -1,0 +1,22 @@
+<html>
+	<body>
+		{% if questions.count > 0 %}
+			{% for question in questions %}
+				<div>			
+					<h2><a href="/hello/question/{{question.id}}/">{{question.text|truncatechars:500}}</a></h2></p>
+					<p>Modified: {{question.modtime}}</p>
+					<p>Created: {{question.createtime}}</p>
+					<p>Author: {{question.author}}</p>
+					<p>Tags:
+						{% for tag in question.tags.all %}
+							<a href="/hello/tag_questions/{{tag.id}}">{{tag.text}}</a>,
+						{% endfor %}
+					</p>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>Nothing to show</p>
+		{% endif %}
+		<p><a href="/hello/create_question">Create Question</a></p>
+	</body>
+</html>

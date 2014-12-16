@@ -1,0 +1,20 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% block title %}Base Title{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href='{% static "css/default.css" %}'>
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	</head>
+	
+	<body>
+		<div id="page">
+			<div id="content">
+				{% block content %}
+					Base Content
+				{% endblock %}
+			</div>
+		</div>
+	</body>
+</html>
