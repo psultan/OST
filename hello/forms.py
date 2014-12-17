@@ -1,3 +1,4 @@
+'''django form layouts for models'''
 from django import forms
 from models import Question, Answer, Image
 

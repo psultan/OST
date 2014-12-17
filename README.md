@@ -14,6 +14,7 @@ Django
 
  1. Multi-User Support
 	 1. Register /accounts/register
+		 1. Test User: username:test, password:test
 	 2. Login /accounts/login
 	 3. Logout /accounts/logout
  2. Editing 
@@ -43,12 +44,15 @@ Django
 	 1. feed for all questions /hello/feed
 	 2. feed for a question's answers /hello/feed/<question_id>
  11. (Additional Requirement). Branch/Tag
-	 1. There is an active rssoff branch
-	 2. There is a merged recaptcha branch
-	 3. There is a tag r1
+	 1. active branch: rssoff branch
+	 2. active branch: docs
+	 2. merged branch: recaptcha
+	 3. tag: r1
 
 ### Bonus
  1. Captcha
 	 1. /accounts/register uses google's new reCaptcha validation
  2. Github hosting
 	 1. [https://github.com/psultan/OST](https://github.com/psultan/OST)
+ 3. Read The Docs
+	 1. [http://ost.readthedocs.org/en/latest/](http://ost.readthedocs.org/en/latest/)
