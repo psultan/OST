@@ -50,7 +50,7 @@ def tag_questions(request, tag_id):
     tag=Tag.objects.get(id=tag_id)
     questions=tag.questions.all()
 
-    return render_to_response('all_questions.html', {'questions': questions})
+    return render_to_response('all_questions.html', {'questions': questions}, context_instance=RequestContext(request))
 def question(request, question_id=1):
     '''return a questions with its answers sorted'''
     question=Question.objects.get(id=question_id)
