@@ -1,12 +1,12 @@
 from django import forms
-from models import Test, Question, Answer
+from models import Question, Answer, Image
 
 import sys
 
-class TestForm(forms.ModelForm):
+class ImageForm(forms.ModelForm):
 	class Meta:
-		model = Test
-		fields = ("thumbnail",)
+		model = Image
+		fields = ("file",)
 		
 class QuestionForm(forms.ModelForm):
 	class Meta:

@@ -12,9 +12,9 @@
 			<a href="/hello/tag_questions/{{tag.id}}">{{tag.text}}</a>
 		{% endfor %}
 	</p>
-	<p>Vote <a href="/hello/vote/{{question.id}}/1"><img src="{% static "images/up.png" %}" width=15 /></a>
-	        <a href="/hello/vote/{{question.id}}/-1"><img src="{% static "images/down.png" %}" width=15 /></a>
-			{{question.total_votes}}
+	<p>Votes: {{question.up_votes}} <a href="/hello/vote/{{question.id}}/1"><img src="{% static "images/up.png" %}" width=15 /></a>
+	          {{question.down_votes}} <a href="/hello/vote/{{question.id}}/-1"><img src="{% static "images/down.png" %}" width=15 /></a>
+			  {{question.total_votes}}
 	</p>
 	
 	{% ifequal question.author user %}
@@ -26,9 +26,9 @@
 		<p>Modified: {{answer.modtime}}</p>
 		<p>Created: {{answer.createtime}}</p>
 		<p>Author: {{answer.author}}</p>
-		<p>Vote <a href="/hello/vote/{{question.id}}/{{answer.id}}/1"><img src="{% static "images/up.png" %}" width=15 /></a>
-	                <a href="/hello/vote/{{question.id}}/{{answer.id}}/-1"><img src="{% static "images/down.png" %}" width=15 /></a>
-					{{answer.total_votes}}
+		<p>Votes: {{answer.up_votes}} <a href="/hello/vote/{{question.id}}/{{answer.id}}/1"><img src="{% static "images/up.png" %}" width=15 /></a>
+	              {{answer.down_votes}} <a href="/hello/vote/{{question.id}}/{{answer.id}}/-1"><img src="{% static "images/down.png" %}" width=15 /></a>
+				  {{answer.total_votes}}
 	    </p>
 		{% ifequal answer.author user %}
 			<p><a href="/hello/edit_answer/{{answer.id}}/">Edit Answer</a> <a href="/hello/delete_answer/{{answer.id}}/">Delete Answer</a></p>

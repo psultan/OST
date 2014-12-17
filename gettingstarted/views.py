@@ -7,6 +7,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 
+import sys
 
 def auth_view(request):
 	username = request.POST.get('username', '')
@@ -54,6 +55,6 @@ def logout(request):
 	auth.logout(request)
 	return render_to_response('logout.html')
 def loggedin(request):
-	return render_to_response('loggedin.html', {'full_name':request.user.username})
+	return render_to_response('loggedin.html', {'full_name':request.user.username}, context_instance=RequestContext(request))
 def invalid_login(request):
 	return render_to_response('invalid_login.html')

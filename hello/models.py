@@ -9,9 +9,6 @@ def get_upload_file_name(instance, filename):
 
 class Greeting(models.Model):
     when = models.DateTimeField('date created', auto_now_add=True)
-class Test(models.Model):
-	thumbnail = models.FileField(upload_to=get_upload_file_name)
-	
 
 class Tag(models.Model):
 	text = models.CharField(max_length=100)
@@ -31,7 +28,13 @@ class Question(models.Model):
 		
 	def total_votes(self):
 		return self.vote_question_set.aggregate(Sum('value'))['value__sum']
-	
+	def down_votes(self):
+		return self.vote_question_set.filter(value=-1).count()
+	def up_votes(self):
+		return self.vote_question_set.filter(value=1).count()
+	def vote_rank(self):
+		#rank largest differance betwen up and down
+		return up_votes()+down_votes()
 class Answer(models.Model):
 	text        = models.TextField()
 	
@@ -46,6 +49,13 @@ class Answer(models.Model):
 		
 	def total_votes(self):
 		return self.vote_answer_set.aggregate(Sum('value'))['value__sum']
+	def down_votes(self):
+		return self.vote_answer_set.filter(value=-1).count()
+	def up_votes(self):
+		return self.vote_answer_set.filter(value=1).count()
+	def vote_rank(self):
+		#rank largest differance betwen up and down
+		return up_votes()+-down_votes()
 class Vote_Answer(models.Model):
 	value = models.SmallIntegerField()
 	

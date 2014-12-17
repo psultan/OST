@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+	{% if images.count > 0 %}
+		{% for image in images %}
+			<ul>
+				<li><a href={{image.file.url}}><img src="{{image.file.url}}" width=100 /></a></li>
+			</ul>
+		{% endfor %}
+	{% else %}
+		<p>Nothing to show</p>
+	{% endif %}
+	<img src="{% static "images/cathat.jpg" %}" width=100/>
+{% endblock %}
+	

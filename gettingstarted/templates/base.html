@@ -5,11 +5,27 @@
 	<head>
 		<title>{% block title %}Base Title{% endblock %}</title>
 		<link rel="stylesheet" type="text/css" href='{% static "css/default.css" %}'>
-		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	</head>
 	
 	<body>
 		<div id="page">
+			<div id="sidebar">
+				{% block sidebar %}
+				<ul>
+					<li><a href="/hello/all_questions">Questions</a></li>
+					<li><a href="/hello/all_uploads">Uploads</a></li>
+					
+					{% if user.is_authenticated %}
+						<li><a href="/hello/upload">File Upload</a></li>
+						<li><a href="/accounts/logout">Logout</a></li>
+						<p>{{user.username}}</p>
+					{% else %}
+						<li><a href="/accounts/login">Login</a></li>
+					{% endif %}
+				</ul>
+				{% endblock %}
+			</div>
+		
 			<div id="content">
 				{% block content %}
 					Base Content

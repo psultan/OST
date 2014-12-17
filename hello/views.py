@@ -4,13 +4,15 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 import requests
 import os
 import sys
 
-from models import Greeting, Test, Tag, Question, Answer, Vote_Answer, Vote_Question
-from forms import TestForm, QuestionForm, AnswerForm
+from models import Greeting, Tag, Question, Answer, Vote_Answer, Vote_Question, Image
+from forms import ImageForm, QuestionForm, AnswerForm
 
 def db(request):
     greeting = Greeting()
@@ -23,10 +25,21 @@ def index(request):
     return HttpResponse('<pre>' + r.text + '</pre>')
 
 	
-def all_images(request):
-	return render_to_response('all_images.html', {'tests': Test.objects.all()})
+def all_uploads(request):
+	return render_to_response('all_uploads.html', {'images': Image.objects.all()}, context_instance=RequestContext(request))
 def all_questions(request):
-	return render_to_response('all_questions.html', {'questions': Question.objects.all()})
+	questions=Question.objects.all()
+	paginator = Paginator(questions, 10)
+	
+	page = request.GET.get('page')
+	try:
+		questions = paginator.page(page)
+	except PageNotAnInteger:
+		questions = paginator.page(1)
+	except EmptyPage:
+		questions = paginator.page(paginator.num_pages)
+
+	return render_to_response('all_questions.html', {'questions': questions}, context_instance=RequestContext(request))
 def tag_questions(request, tag_id):
 	tag=Tag.objects.get(id=tag_id)
 	questions=tag.questions.all()
@@ -35,6 +48,8 @@ def tag_questions(request, tag_id):
 def question(request, question_id=1):
 	question=Question.objects.get(id=question_id)
 	answers=question.answer_set.all()
+	#sort with largest differance first
+	answers=sorted(answers, key=lambda a: a.vote_rank, reverse=1)
 	return render_to_response('question.html',
 								{'question': question,
 								 'answers':answers},context_instance=RequestContext(request))
@@ -43,13 +58,13 @@ def question(request, question_id=1):
 def upload(request):
 	if request.POST:
 		#save form
-		form = TestForm(request.POST, request.FILES)
+		form = ImageForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect('/hello/all_images')
 	else:
 		#show form
-		form = TestForm()
+		form = ImageForm()
 		args={}
 		args['form'] = form
 		return render_to_response("upload.html", args, context_instance=RequestContext(request))
@@ -97,9 +112,11 @@ def create_question(request, question_id=None):
 		if question_id:
 			#editing current
 			question=Question.objects.get(id=question_id)
-			args["question_id"]=question_id
+			args['question']=question
+			args['command']="Update"
 			tags=",".join(question.tags.values_list("text", flat=True))
-			
+		else:
+			args['command']="Create"
 		form = QuestionForm(tags=tags, instance=question)
 		args['form'] = form
 		
@@ -130,12 +147,15 @@ def create_answer(request, question_id=None, answer_id=None):
 			#edit current
 			answer=Answer.objects.get(id=answer_id)
 			args['question_id']=answer.question.id
-			args['answer_id']=answer
+			args['answer']=answer
+			args['command']="Update"
 		else:
 			#show new form
 			args['question_id']=question_id
+			args['command']="Create"
 		form = AnswerForm(instance=answer)
 		args['form'] = form
+		
 		
 		return render_to_response("create_answer.html", args, context_instance=RequestContext(request))
 @login_required
@@ -145,7 +165,7 @@ def delete_answer(request, answer_id=None):
 	answer.delete()
 	return HttpResponseRedirect('/hello/question/%s'%question.id)
 @login_required
-def delete_answer(request, question_id=None):
+def delete_question(request, question_id=None):
 	question=Question.objects.get(id=question_id)
 	question.delete()
 	return HttpResponseRedirect('/hello/all_questions')
