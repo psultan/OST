@@ -20,7 +20,8 @@
 	{% else %}
 		<p>Nothing to show</p>
 	{% endif %}
-
+	
+	<br>
 	<div class="pagination">
 		<span class="step-links">
 			{% if questions.has_previous %}
@@ -35,7 +36,7 @@
 		</span>
 	</div>
 
-
-	<p><a href="/hello/create_question">Create Question</a></p>
+	<br><br>
+	<a href="/hello/create_question">Create Question</a>
 
 {% endblock %}

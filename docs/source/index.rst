@@ -1,13 +1,27 @@
 Welcome to OST's documentation!
 ===============================
 
-Contents:
-
+hello
+-----------
 .. toctree::
-   :maxdepth: 2
+   :maxdepth:1
+   
+   hello.forms
+   hello.feeds
+   hello.models
+   hello.urls
+   hello.views
 
-
-
+gettingstarted
+-----------
+.. toctree::
+   :maxdepth:1
+    
+   gettingstarted.urls
+   gettingstarted.views   
+   
+   
+|
 Indices and tables
 ==================
 
