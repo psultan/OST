@@ -54,5 +54,5 @@ Django
 	 1. /accounts/register uses google's new reCaptcha validation
  2. Github hosting
 	 1. [https://github.com/psultan/OST](https://github.com/psultan/OST)
- 3. Read The Docs
+ 3. Documentation using Sphinx + Read The Docs
 	 1. [http://ost.readthedocs.org/en/latest/](http://ost.readthedocs.org/en/latest/)
