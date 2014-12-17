@@ -61,7 +61,7 @@ def upload(request):
 		form = ImageForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/hello/all_images')
+			return HttpResponseRedirect('/hello/all_uploads')
 	else:
 		#show form
 		form = ImageForm()
