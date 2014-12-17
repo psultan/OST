@@ -49,6 +49,15 @@ def tag_questions(request, tag_id):
     '''return questions with a specific tag'''
     tag=Tag.objects.get(id=tag_id)
     questions=tag.questions.all()
+    paginator = Paginator(questions, 10)
+    
+    page = request.GET.get('page')
+    try:
+        questions = paginator.page(page)
+    except PageNotAnInteger:
+        questions = paginator.page(1)
+    except EmptyPage:
+        questions = paginator.page(paginator.num_pages)
 
     return render_to_response('all_questions.html', {'questions': questions}, context_instance=RequestContext(request))
 def question(request, question_id=1):
