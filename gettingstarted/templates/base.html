@@ -15,20 +15,18 @@
 					<ul>
 						<li><a href="/hello/all_questions">Questions</a></li>
 						<li><a href="/hello/all_uploads">Uploads</a></li>
-					</ul>
 					{% if user.is_authenticated %}
-						<ul>
 							<li><a href="/hello/create_question">Create Question</a></li>
 							<li><a href="/hello/upload">File Upload</a></li>
 							<li><a href="/accounts/logout">Logout</a></li>
 							<br>
                             <p>{{user.username}}</p>
-						</ul>
 					{% else %}
-						<ul>
 							<li><a href="/accounts/login">Login</a></li>
-						</ul>
 					{% endif %}
+                        <br>
+                        <li><a href="https://github.com/psultan/OST">Docs</a></li>
+                    </ul>
 				{% endblock %}
 			</div>
 		
