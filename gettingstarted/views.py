@@ -38,12 +38,13 @@ def current_user(request):
 	return HttpResponse('<pre>' + s + '</pre>')
 def register_user(request):
 	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		if form.is_valid():
-			new_user = form.save()
-			return HttpResponseRedirect("/accounts/register_success")
-		else:
-			return invalid_login(request)
+		reCaptcha = request.POST.get('g-recaptcha-response', "")
+		if reCaptcha:
+			form = UserCreationForm(request.POST)
+			if form.is_valid():
+				new_user = form.save()
+				return HttpResponseRedirect("/accounts/register_success")
+		return invalid_login(request)
 	else:
 		form = UserCreationForm()
 		return render(request, "register.html", {'form': form}, context_instance=RequestContext(request))

@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
+{% block headlinks %}
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+
 {% block content %}
   <h1>Create an account</h1>
   <form action="/accounts/register/" method="post">{% csrf_token %}
       {{ form.as_p }}
-      <input type="submit" value="Register">
+      <div class="g-recaptcha" data-sitekey="6LfI_v4SAAAAAB-YXduQRaf5mD7TqF-ppf0PqMAu"></div>
+	  <input type="submit" value="Register">
   </form>
 {% endblock %}
