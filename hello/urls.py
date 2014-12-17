@@ -26,6 +26,6 @@ urlpatterns = patterns('',
 	url(r'^vote/(?P<question_id>\d+)/(?P<answer_id>\d+)/(?P<direction>-?\d+)/$',      'hello.views.vote'),
 	url(r'^vote/(?P<question_id>\d+)/(?P<direction>-?\d+)/$',                         'hello.views.vote'),
 	
-	url(r'^feed/$',								 LatestQuestions()),
-	url(r'^feed/(?P<question_id>\d+)/$', 		 LatestAnswers())
+	#url(r'^feed/$',								 LatestQuestions()),
+	#url(r'^feed/(?P<question_id>\d+)/$', 		 LatestAnswers())
 )
