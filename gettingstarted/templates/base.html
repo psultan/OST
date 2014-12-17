@@ -12,18 +12,22 @@
 		<div id="page">
 			<div id="sidebar">
 				{% block sidebar %}
-				<ul>
-					<li><a href="/hello/all_questions">Questions</a></li>
-					<li><a href="/hello/all_uploads">Uploads</a></li>
-					
+					<ul>
+						<li><a href="/hello/all_questions">Questions</a></li>
+						<li><a href="/hello/all_uploads">Uploads</a></li>
+					</ul>
 					{% if user.is_authenticated %}
-						<li><a href="/hello/upload">File Upload</a></li>
-						<li><a href="/accounts/logout">Logout</a></li>
-						<p>{{user.username}}</p>
+						<ul>
+							<li><a href="/hello/create_question">Create Question</a></li>
+							<li><a href="/hello/upload">File Upload</a></li>
+							<li><a href="/accounts/logout">Logout</a></li>
+							<p>{{user.username}}</p>
+						</ul>
 					{% else %}
-						<li><a href="/accounts/login">Login</a></li>
+						<ul>
+							<li><a href="/accounts/login">Login</a></li>
+						</ul>
 					{% endif %}
-				</ul>
 				{% endblock %}
 			</div>
 		

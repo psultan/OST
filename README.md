@@ -3,12 +3,12 @@ Author: Paul Sultan
 
 Heroku
 
- - python-getting-started
+ - python-getting-started(project)
 
 Django
 
- - gettingstarted 
- - hello
+ - gettingstarted(project)
+ - hello(app)
 
 ### Requirements
 
@@ -35,10 +35,11 @@ Django
 	 2. All uploads can be viewed at /hello/all_uploads
  8. 500 Character Cap
 	 1. When viewing all questions, the question title is capped at 500 (django truncatechars)
+	 2. Each question has a permalink based on question_id
  9. Timestamps
 	 1. Questions/Answers have modtime and createtime attributes.
 	 2. modtime is affected when a question/answer is edited
- 10. RSS
+ 10. RSS (django syndication)
 	 1. feed for all questions /hello/feed
 	 2. feed for a question's answers /hello/feed/<question_id>
  11. (Additional Requirement). Branch/Tag
