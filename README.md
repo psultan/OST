@@ -1,35 +1,52 @@
-# python-getting-started
+## Final Project
+Author: Paul Sultan
+Heroku
 
-A barebones Python app, which can easily be deployed to Heroku.
+ - python-getting-started
 
-This application support the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out.
+Django
 
-## Running Locally
+ - gettingstarted 
+ - hello
 
-Make sure you have Python [installed properly](http://install.python-guide.org).  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
+### Requirements
 
-```sh
-$ git clone git@github.com:heroku/python-getting-started.git
-$ cd python-getting-started
-$ pip install -r requirements.txt
-$ python manage.py syncdb
-$ foreman start web
-```
+ 1. Multi-User Support
+	 1. Register /accounts/register
+	 2. Login /accounts/login
+	 3. Logout /accounts/logout
+ 2. Editing 
+	 1. Authors of posts can edit/delete their Questions/Answers
+	 2. Users can vote once per Question/Answer
+ 3. Pagination
+	 1. 10 Questions are listed on the main view /hello/all_questions
+	 2. Next/Previous buttons are located on the bottom of the page
+ 4. Answer Order
+	 1. Answers are sorted from largest differance to smallest
+ 5. Tags
+	 1. Questions can have tags (django manytomany relationship)
+	 2. When defining a question seperate tags with a comma.
+	 3. clicking a tag will show only questions with matching tag
+ 6. Inline links
+	 1. If a answer contains a url to a website or image it will be displayed inline.  (django smarturlize)
+ 7. Image Upload
+	 1. Images can be uploaded /hello/upload
+	 2. All uploads can be viewed at /hello/all_uploads
+ 8. 500 Character Cap
+	 1. When viewing all questions, the question title is capped at 500 (django truncatechars)
+ 9. Timestamps
+	 1. Questions/Answers have modtime and createtime attributes.
+	 2. modtime is affected when a question/answer is edited
+ 10. RSS
+	 1. feed for all questions /hello/feed
+	 2. feed for a question's answers /hello/feed/<question_id>
+ 11. (Additional Requirement). Branch/Tag
+	 1. There is an active rssoff branch
+	 2. There is a merged recaptcha branch
+	 3. There is a tag r1
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
-```sh
-$ heroku create
-$ git push heroku master
-$ heroku run python manage.py syncdb
-$ heroku open
-```
-
-## Documentation
-
-For more information about using Python on Heroku, see these Dev Center articles:
-
-- [Python on Heroku](https://devcenter.heroku.com/categories/python)
-
+### Bonus
+ 1. Captcha
+	 1. /accounts/register uses google's new reCaptcha validation
+ 2. Github hosting
+	 1. [https://github.com/psultan/OST](https://github.com/psultan/OST)

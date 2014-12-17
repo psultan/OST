@@ -22,7 +22,7 @@
 	{% endifequal %}
 	
 	{% for answer in answers %}
-		{{ answer.text|smarturlize }}
+		<b>{{ answer.text|smarturlize }}</b>
 		<p>Modified: {{answer.modtime}}</p>
 		<p>Created: {{answer.createtime}}</p>
 		<p>Author: {{answer.author}}</p>

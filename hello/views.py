@@ -49,7 +49,7 @@ def question(request, question_id=1):
 	question=Question.objects.get(id=question_id)
 	answers=question.answer_set.all()
 	#sort with largest differance first
-	answers=sorted(answers, key=lambda a: a.vote_rank, reverse=1)
+	answers=sorted(answers, key=lambda a: a.vote_rank(), reverse=1)
 	return render_to_response('question.html',
 								{'question': question,
 								 'answers':answers},context_instance=RequestContext(request))

@@ -34,7 +34,7 @@ class Question(models.Model):
 		return self.vote_question_set.filter(value=1).count()
 	def vote_rank(self):
 		#rank largest differance betwen up and down
-		return up_votes()+down_votes()
+		return self.up_votes()+self.down_votes()
 class Answer(models.Model):
 	text        = models.TextField()
 	
@@ -45,7 +45,7 @@ class Answer(models.Model):
 	author   = models.ForeignKey(User)
 	
 	def __unicode__(self):
-		return str(self.id)
+		return str(self.id)+":"+str(self.vote_rank())
 		
 	def total_votes(self):
 		return self.vote_answer_set.aggregate(Sum('value'))['value__sum']
@@ -55,7 +55,7 @@ class Answer(models.Model):
 		return self.vote_answer_set.filter(value=1).count()
 	def vote_rank(self):
 		#rank largest differance betwen up and down
-		return up_votes()+-down_votes()
+		return self.up_votes()+self.down_votes()
 class Vote_Answer(models.Model):
 	value = models.SmallIntegerField()
 	
