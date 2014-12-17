@@ -3,7 +3,6 @@ Author: Paul Sultan
 
 [https://secure-beach-3517.herokuapp.com/hello/all_questions/](https://secure-beach-3517.herokuapp.com/hello/all_questions/)
 
-
 Heroku
 
  - python-getting-started(project)
@@ -59,3 +58,11 @@ Django
 	 1. [https://github.com/psultan/OST](https://github.com/psultan/OST)
  3. Documentation using Sphinx + Read The Docs
 	 1. [http://ost.readthedocs.org/en/latest/](http://ost.readthedocs.org/en/latest/)
+
+
+##Notes
+
+- During testing all requirements appear to be fulfilled and working as desired.  If for any reason you run into any serious error please contact me.
+- Some uploaded images may appear to be missing.  These were added to the database locally so will not appear on the hosted version.  All images uploaded from the hosted version will work as expected.
+    
+ 
