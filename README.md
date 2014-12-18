@@ -44,7 +44,7 @@ Django
 	 2. modtime is affected when a question/answer is edited
  10. RSS (django syndication)
 	 1. feed for all questions /hello/feed
-	 2. feed for a question's answers /hello/feed/<question_id>
+	 2. feed for a question's answers /hello/feed/question_id
  11. (Additional Requirement). Branch/Tag
 	 1. active branch: rssoff branch
 	 2. active branch: docs
