@@ -20,6 +20,8 @@
 	{% ifequal question.author user %}
 		<p><a href="/hello/edit_question/{{question.id}}/">Edit Question </a><a href="/hello/delete_question/{{question.id}}/">Delete Question</a></p>
 	{% endifequal %}
+    
+    <p><a href="/hello/feed/{{question.id}}">rss</a></p>
 	
 	{% for answer in answers %}
 		<b>{{ answer.text|smarturlize }}</b>
